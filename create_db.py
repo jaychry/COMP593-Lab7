@@ -20,3 +20,16 @@ def main():
     populate_movies_table()
     con.close()
 
+def create_movies_table():
+    """Creates the movie table in the database"""
+    con = sqlite3.connect('bond_movies.db')
+    cur = con.cursor()
+    movies_query = """CREATE TABLE IF NOT EXISTS movies
+                        (Year INTEGER,
+                        Movie TEXT NOT NULL,
+                        Bond TEXT NOT NULL,
+                        Avg_User_IMDB REAL);"""
+    cur.execute(movies_query)
+    con.commit()
+    con.close()
+    return
