@@ -26,7 +26,29 @@ def get_early_bond_movies():
     cur = con.cursor()
     cur.execute("SELECT Year, Movie, Bond FROM movies WHERE YEAR < 1980")
     early_movies = cur.fetchall()
-    con.commit()
     con.close()
     return early_movies
 
+def print_movies(movie_list):
+    """Prints the Year, Movie and Bond actor of all movies in the provided list.
+    Args:
+        movie_list (list): (Year, Movie, Bond) of movies
+    """
+    print("pre-1980 Bond Movies:")
+    for movie in movie_list:
+        print(f"In {movie[0]}, {movie[2]} starred in {movie[1]}.")
+    return
+
+def save_movies_to_csv(movie_list, csv_path):
+    """Saves the Year, Movie and the Bond actor of all movies in the provided list.
+    Args:
+        movie_list (list): (Year, Movie, Bond) of movies
+        csv_path (str): Path of CSV file
+    """
+    df = pd.DataFrame(movie_list, columns=["Year", "Movie", "Bond"])
+    fname = os.path.basename(csv_path)
+    df.to_csv(fname, index=False)
+    return
+
+if __name__ == '__main__':
+    main()
